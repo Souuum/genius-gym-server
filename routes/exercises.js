@@ -4,14 +4,23 @@ var Exercises = require("../models/Exercises");
 
 /* GET Exercises listing. */
 router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
+    Exercises.findAll()
+        .then(Exercises => { res.send(Exercises) })
 });
 
 router.get('/:id', function (req, res, next) {
     const id = req.params.id;
 
-    Exercises.findOne({ where: { id: id } })
+    Exercises.findByPk(id)
         .then(Exercise => { res.send(Exercise) })
 });
+
+router.get('/name/:name', function (req, res, next) {
+    const name = req.params.name;
+
+    Exercises.findOne({ where: { name: name } })
+        .then(Exercise => { res.send(Exercise) })
+});
+
 
 module.exports = router;
