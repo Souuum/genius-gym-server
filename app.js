@@ -8,6 +8,9 @@ var sequelize = require('./config/database')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var exercisesRouter = require('./routes/exercises');
+var workoutsRouter = require('./routes/workouts');
+var usersWorkoutsRouter = require('./routes/users_workouts');
+var workoutsExercisesRouter = require('./routes/workouts_exercises');
 
 var app = express();
 
@@ -24,6 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/exercises', exercisesRouter);
+app.use('/workouts', workoutsRouter);
+app.use('/users_workouts', usersWorkoutsRouter);
+app.use('/workouts_exercises', workoutsExercisesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

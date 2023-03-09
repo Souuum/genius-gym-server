@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Workouts = require("../models/Workouts");
+var Workouts = require("../models/workouts");
 
 /* GET Workouts listing. */
 router.get('/', function (req, res, next) {
