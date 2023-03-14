@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sequelize = require('./config/database')
+var cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -20,6 +21,7 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,5 +52,14 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+Workouts = require('./models/workouts');
+Exercises = require('./models/exercises');
+Workouts.belongsToMany(Exercises, { through: 'Workout_Exercises' });
+Exercises.belongsToMany(Workouts, { through: 'Workout_Exercises' });
+
+sequelize.sync({ alter: true }).then(() => {
+  console.log("Database structure updated")
+})
 
 module.exports = app;

@@ -8,6 +8,12 @@ const Workouts = db.define("Workouts", {
     description: {
         type: Sequelize.STRING,
     },
+    category: {
+        type: Sequelize.STRING,
+    },
+    isCustom: {
+        type: Sequelize.BOOLEAN,
+    },
 
 });
 
