@@ -1,3 +1,5 @@
+DROP SCHEMA `genius-gym`;
+
 CREATE DATABASE
     `genius-gym`
     /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */
@@ -24,6 +26,18 @@ CREATE TABLE
         PRIMARY KEY (`id`)
     ) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
+
+CREATE TABLE
+    `Workouts` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `name` varchar(255) DEFAULT NULL,
+        `description` varchar(255) DEFAULT NULL,
+        `category` varchar(255) DEFAULT NULL,
+        `isCustom` tinyint(1) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+
 CREATE TABLE
     `Users_Workouts` (
         `UserId` int(11) NOT NULL,
@@ -45,17 +59,6 @@ CREATE TABLE
         CONSTRAINT `Workout_Exercises_ibfk_1` FOREIGN KEY (`WorkoutId`) REFERENCES `Workouts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
         CONSTRAINT `Workout_Exercises_ibfk_2` FOREIGN KEY (`ExerciseId`) REFERENCES `Exercises` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
-CREATE TABLE
-    `Workouts` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `name` varchar(255) DEFAULT NULL,
-        `description` varchar(255) DEFAULT NULL,
-        `category` varchar(255) DEFAULT NULL,
-        `isCustom` tinyint(1) DEFAULT NULL,
-        PRIMARY KEY (`id`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 5 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
-
 -- Data Dump
 
 insert into
