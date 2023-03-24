@@ -28,8 +28,6 @@ router.get('/email/:email', function (req, res, next) {
   const email = req.params.email;
   Users.findOne({ where: { email: email } })
     .then(user => { res.send(user) });
-
-
 })
 
 

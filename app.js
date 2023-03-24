@@ -5,11 +5,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sequelize = require('./config/database')
 var cors = require('cors');
+var session = require('express-session');
+var Store = session.Store;
 
+var auth = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var exercisesRouter = require('./routes/exercises');
-var workoutsRouter = require('./routes/workouts');
+var workoutsRouter = require('./routes/Workouts');
 var usersWorkoutsRouter = require('./routes/users_workouts');
 var workoutsExercisesRouter = require('./routes/workouts_exercises');
 
@@ -26,7 +29,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: false,
+  maxAge: 500,
+
+}));
+
 app.use('/', indexRouter);
+app.use('/auth', auth);
 app.use('/users', usersRouter);
 app.use('/exercises', exercisesRouter);
 app.use('/workouts', workoutsRouter);
