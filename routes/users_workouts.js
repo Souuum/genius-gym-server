@@ -25,7 +25,7 @@ router.get('/workoutid/:id', function (req, res, next) {
 router.get('/userid/:id', function (req, res, next) {
     const id = req.params.id;
 
-    UsersWorkouts.findAll({ where: { idUser: id } })
+    UsersWorkouts.findAll({ where: { UserId: id } })
         .then(userWorkouts => { res.send(userWorkouts) })
 });
 

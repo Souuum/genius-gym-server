@@ -40,6 +40,13 @@ router.get('/stock/exercises', function (req, res, next) {
         .then(Workout => { res.send(Workout) })
 });
 
+router.get('/custom/exercises/:id', function (req, res, next) {
+    const id = req.params.id;
+
+    Workouts.findOne({ include: Exercises, where: { id: id } })
+        .then(Workout => { res.send(Workout) })
+});
+
 router.get('/exercises/:id', function (req, res, next) {
     const id = req.params.id;
 

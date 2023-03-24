@@ -136,12 +136,12 @@ router.post("/signup", async (req, res) => {
             });
         } else {
             console.log("Creating our user");
-
+            var values = Object.values(params); //because trainingType is a special key
             var firstName = params.firstName;
             var lastName = params.lastName;
             var email = params.email.toLowerCase();
             var pw = params.password;
-            var trainingType = params.trainingType;
+            var trainingType = values[4];
 
 
             const hashed = crypto
