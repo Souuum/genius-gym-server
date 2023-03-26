@@ -73,6 +73,8 @@ Exercises.belongsToMany(Workouts, { through: 'Workout_Exercises' });
 Users.belongsToMany(Workouts, { through: 'Users_Workouts' });
 Workouts.belongsToMany(Users, { through: 'Users_Workouts' });
 
+
+
 sequelize.sync({ alter: true }).then(() => {
   console.log("Database structure updated")
 })

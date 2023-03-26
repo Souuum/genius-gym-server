@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var Workouts = require("../models/workouts");
+var Workouts_Exercises = require("../models/workouts_exercises");
 var Exercises = require("../models/exercises");
+var Users = require("../models/users");
 
 /* GET Workouts listing. */
 router.get('/', function (req, res, next) {
@@ -54,5 +56,30 @@ router.get('/exercises/:id', function (req, res, next) {
         .then(Workout => { res.send(Workout) })
 });
 
+router.post('/exercises', function (req, res, next) {
+    const workoutData = req.body;
+    Workouts.create(workoutData, { include: Exercises })
+        .then(workout => console.log(workout.toJSON()))
+        .catch(error => console.error(error));
+});
+
+router.post('/custom/exercises/', async function (req, res, next) {
+    const userId = req.body.userId;
+    const workoutData = req.body.Workout;
+    const workout = await Workouts.create(JSON.parse(workoutData));
+    const user = await Users.findByPk(userId); // assuming you have the userId
+    await user.addWorkout(workout);
+    const exercisesData = JSON.parse(req.body.Exercise);
+    exercisesData.forEach(element => {
+        Workouts_Exercises.create({
+            WorkoutId: workout.id,
+            ExerciseId: element.id,
+            nbReps: element.reps,
+            nbSets: element.sets,
+        });
+    });
+
+
+});
 
 module.exports = router;
