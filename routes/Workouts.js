@@ -78,8 +78,36 @@ router.post('/custom/exercises/', async function (req, res, next) {
             nbSets: element.sets,
         });
     });
+    // succes status
+    res.status(200).send();
 
 
+});
+
+router.post('/custom/modify/', async function (req, res, next) {
+    // we first look for the workout
+    const workoutId = JSON.parse(req.body.Workout).id;
+    console.log(workoutId)
+    const workout = await Workouts.findByPk(workoutId);
+    console.log(workout)
+    // we then update the workout
+    const workoutData = req.body.Workout;
+    await workout.update(JSON.parse(workoutData));
+    // we then delete all the exercises associated with the workout
+    await Workouts_Exercises.destroy({ where: { WorkoutId: workoutId } });
+    // we then add the new exercises
+    const exercisesData = JSON.parse(req.body.Exercise);
+    exercisesData.forEach(element => {
+        Workouts_Exercises.create({
+            WorkoutId: workout.id,
+            ExerciseId: element.id,
+            nbReps: element.reps,
+            nbSets: element.sets,
+        });
+    }
+    );
+    // succes status
+    res.status(200).send();
 });
 
 module.exports = router;
