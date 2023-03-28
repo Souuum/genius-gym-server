@@ -11,3 +11,5 @@ coverage
 
 
 connection.js
+
+.env
