@@ -3,21 +3,12 @@
 Back-End repo for our Web Project at the University of Concordia
 See :
 
-
 https://github.com/Souuum/genius-gym
 
+Add into `.env`
 
-Add into config/connection.js
-
-
-```js
-
-db = "genius-gym";
-user = "root";
-pw = "pwd";
-host = "localhost";
-
-module.exports = { db, user, pw, host }
+```
+MARIADB_URI=mariadb://root:toor@localhost:3306/genius_gym
 
 ```
 Be sure to change the password to your own, provide empty string if no password
@@ -30,5 +21,5 @@ npm install
 then
 
 ```
-nodemon
+npm start
 ```
