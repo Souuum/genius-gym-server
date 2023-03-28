@@ -23,3 +23,9 @@ then
 ```
 npm start
 ```
+
+## Docker
+
+```bash
+docker compose up --build -d
+```
