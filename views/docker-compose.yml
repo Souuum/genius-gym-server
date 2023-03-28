@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mariadb:10.9
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=genius_gym
+    networks:
+      - express
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql:ro
+  api:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - MARIADB_URI=mariadb://root:root@db:3306/genius_gym
+    depends_on:
+      - db
+    networks: 
+      - express
+
+networks:
+  express:
+    driver: bridge
